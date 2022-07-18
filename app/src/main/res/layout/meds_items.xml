@@ -10,7 +10,7 @@
         android:id="@+id/imageBtn"
         android:layout_width="50dp"
         android:background="@color/white"
-        android:src="@android:drawable/star_on"
+        android:src="@mipmap/ic_launcher_foreground"
         android:layout_height="50dp"/>
 
     <LinearLayout
@@ -18,6 +18,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tvId"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
 
         <TextView
             android:id="@+id/tvName"

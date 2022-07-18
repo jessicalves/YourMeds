@@ -1,43 +1,42 @@
 package com.example.yourmeds.view
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yourmeds.R
 import com.example.yourmeds.model.RemedyModel
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
-class RemedyAdapter(var remedyes: MutableList<RemedyModel>) :
-    RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
+class RemedyAdapter(var remedies : MutableList<RemedyModel>) : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
-    inner class RemedyHolder(view: View) : RecyclerView.ViewHolder(view){
-        var editTextNome : TextInputEditText
-        var editTextDose : TextInputEditText
-        var editTextCor : TextInputLayout
-        var editTextData : TextInputEditText
-        var editTextDias : TextInputEditText
-        var editTextRepetir : TextInputEditText
+    private var medList: ArrayList<RemedyModel> = ArrayList()
 
-        init {
-            editTextNome = view.findViewById(R.id.editTextNome)
-            editTextDose = view.findViewById(R.id.editTextDose)
-            editTextCor = view.findViewById(R.id.editTextCor)
-            editTextData = view.findViewById(R.id.editTextData)
-            editTextDias = view.findViewById(R.id.editTextDias)
-            editTextRepetir = view.findViewById(R.id.editTextRepetir)
+    class RemedyHolder(view: View) : RecyclerView.ViewHolder(view){
+        private var id = view.findViewById<TextView>(R.id.tvId)
+        private var  nome = view.findViewById<TextView>(R.id.tvName)
+        private var data = view.findViewById<TextView>(R.id.tvData)
+        var btnDelete = view.findViewById<Button>(R.id.btnDelete)
+
+        fun bindView(med: RemedyModel){
+            id.text = med.id.toString()
+            nome.text = med.nome
+            data.text = med.date
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemedyHolder {
-        TODO("Not yet implemented")
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.meds_items, parent, false)
+        return RemedyHolder(view)
     }
 
     override fun onBindViewHolder(holder: RemedyHolder, position: Int) {
-        TODO("Not yet implemented")
+       val med = remedies[position]
+        holder.bindView(med)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+       return medList.size
     }
 }
