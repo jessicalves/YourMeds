@@ -4,11 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yourmeds.R
-import com.example.yourmeds.model.Remedy
+import com.example.yourmeds.model.RemedyModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-class RemedyAdapter(var remedyes: MutableList<Remedy>) :
+class RemedyAdapter(var remedyes: MutableList<RemedyModel>) :
     RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
     inner class RemedyHolder(view: View) : RecyclerView.ViewHolder(view){
