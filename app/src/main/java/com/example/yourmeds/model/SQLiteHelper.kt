@@ -22,7 +22,7 @@ class SQLiteHelper(context: Context) :
         private const val PERIOD = "period"
 
         private const val sqlCreateRemedy =
-            ("CREATE TABLE IF NOT EXISTS $TBL_REMEDY($ID INTEGER PRIMARY KEY AUTOINCREMENT,$NAME TEXT,$DOSE TEXT,$DATE DATETIME,$COLOR TEXT,$DAYS INTEGER, $PERIOD TEXT)")
+            ("CREATE TABLE IF NOT EXISTS $TBL_REMEDY($ID INTEGER PRIMARY KEY AUTOINCREMENT,$NAME TEXT,$DOSE TEXT,$DATE TEXT,$COLOR TEXT,$DAYS INTEGER, $PERIOD TEXT)")
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -87,7 +87,7 @@ class SQLiteHelper(context: Context) :
                 val dias = getInt(getColumnIndex(DAYS))
                 val periodo = getString(getColumnIndex(PERIOD))
 
-                val remedy = RemedyModel(id.toLong(), nome, dose, data, cor, dias, periodo)
+                val remedy = RemedyModel(id, nome, dose, data, cor, dias, periodo)
                 remedies.add(remedy)
 
             }

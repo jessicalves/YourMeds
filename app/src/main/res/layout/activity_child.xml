@@ -57,7 +57,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Data de início"
+        android:hint="@string/hint_data"
         android:layout_marginTop="5dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -71,7 +71,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:hint="Quantidade de Dias"
+        android:hint="@string/qtde_dias"
         android:layout_marginTop="5dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -89,14 +89,14 @@
         android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
         android:shadowColor="@color/colorPrimary"
-        android:text="Lembrete"
+        android:text="@string/lembrete"
         android:textSize="16sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:hint="Repetir"
+        android:hint="@string/hint_repeat"
         android:visibility="invisible"
         android:layout_marginTop="5dp"
         android:id="@+id/editTextRepetir"
@@ -116,7 +116,7 @@
         android:layout_margin="10dp"
         android:layout_gravity="center"
         app:icon="@drawable/ic_add"
-        android:text="Adicionar"
+        android:text="@string/add"
         style="@style/Widget.MaterialComponents.Button.Icon"/>
 
 </LinearLayout>

@@ -5,4 +5,9 @@
     <string name="input_name_meds">Nome do Remédio</string>
     <string name="campo_dose">Dosagem</string>
     <string name="msg_inicial">Toque no + para adicionar um remédio.</string>
+    <string name="qtde_dias">Qtde Dias</string>
+    <string name="hint_data">Data de início</string>
+    <string name="lembrete">Lembrete</string>
+    <string name="hint_repeat">Repetir</string>
+    <string name="add">Adicionar</string>
 </resources>

@@ -4,7 +4,7 @@ import android.text.format.DateFormat
 import java.util.*
 
 class RemedyModel(
-    var id: Long = 0,
+    var id: Int = getAutoId(),
     var nome: String = "",
     var dose: String = "",
     var cor: String = "",
@@ -12,4 +12,11 @@ class RemedyModel(
     var days: Int = 0,
     var periodo: String = ""
 ) {
+
+    companion object {
+        fun getAutoId(): Int {
+            val random = Random()
+            return random.nextInt(100)
+        }
+    }
 }

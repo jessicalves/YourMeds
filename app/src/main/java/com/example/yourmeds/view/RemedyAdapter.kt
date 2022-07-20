@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.yourmeds.R
 import com.example.yourmeds.model.RemedyModel
 
-class RemedyAdapter(var remedies : MutableList<RemedyModel>) : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
+class RemedyAdapter : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
     private var medList: ArrayList<RemedyModel> = ArrayList()
 
@@ -26,13 +26,18 @@ class RemedyAdapter(var remedies : MutableList<RemedyModel>) : RecyclerView.Adap
         }
     }
 
+    fun addItems(items: ArrayList<RemedyModel>) {
+        this.medList = items
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemedyHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.meds_items, parent, false)
         return RemedyHolder(view)
     }
 
     override fun onBindViewHolder(holder: RemedyHolder, position: Int) {
-       val med = remedies[position]
+       val med = medList[position]
         holder.bindView(med)
     }
 

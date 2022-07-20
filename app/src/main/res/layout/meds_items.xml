@@ -10,7 +10,7 @@
         android:id="@+id/imageBtn"
         android:layout_width="50dp"
         android:background="@color/white"
-        android:src="@mipmap/ic_launcher_foreground"
+        android:src="@drawable/ic_medication"
         android:layout_height="50dp"/>
 
     <LinearLayout
