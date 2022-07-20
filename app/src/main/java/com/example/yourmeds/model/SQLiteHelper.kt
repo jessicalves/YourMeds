@@ -1,6 +1,7 @@
 package com.example.yourmeds.model
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -41,6 +42,23 @@ class SQLiteHelper(context: Context) :
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db!!.execSQL("DROP TABLE IF EXISTS $TBL_REMEDY")
         onCreate(db)
+    }
+
+    fun insertRemedy(med: RemedyModel) : Long{
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
+
+        contentValues.put(ID, med.id)
+        contentValues.put(NAME, med.nome)
+        contentValues.put(DOSE, med.dose)
+        contentValues.put(DATE, med.date)
+        contentValues.put(COLOR, med.cor)
+        contentValues.put(DAYS, med.days)
+        contentValues.put(PERIOD, med.periodo)
+
+        val success = db.insert(TBL_REMEDY, null, contentValues)
+        db.close()
+        return success
     }
 
     @SuppressLint("Range")
