@@ -81,13 +81,13 @@ class SQLiteHelper(context: Context) :
 
                 val id = getInt(getColumnIndex(ID))
                 val nome = getString(getColumnIndex(NAME))
-                val dose = getString(getColumnIndex(DOSE))
+//                val dose = getString(getColumnIndex(DOSE))
                 val data = getString(getColumnIndex(DATE))
-                val cor = getString(getColumnIndex(COLOR))
-                val dias = getInt(getColumnIndex(DAYS))
-                val periodo = getString(getColumnIndex(PERIOD))
+//                val cor = getString(getColumnIndex(COLOR))
+//                val dias = getInt(getColumnIndex(DAYS))
+//                val periodo = getString(getColumnIndex(PERIOD))
 
-                val remedy = RemedyModel(id, nome, dose, data, cor, dias, periodo)
+                val remedy = RemedyModel(id, nome, data)
                 remedies.add(remedy)
 
             }

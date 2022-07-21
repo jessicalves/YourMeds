@@ -31,8 +31,6 @@ class ChildActivity : AppCompatActivity() {
     private lateinit var editTextDias: TextInputEditText
 
     private lateinit var sqLiteHelper: SQLiteHelper
-    private var adapter: RemedyAdapter? = null
-    private var med: RemedyModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,17 +117,11 @@ class ChildActivity : AppCompatActivity() {
             if (status > -1) {
                 Toast.makeText(this, "Adicionado com sucesso.", Toast.LENGTH_LONG).show()
                 cleanEditText()
-                getRemedy()
             } else {
                 Toast.makeText(this, "Não foi adicionado.", Toast.LENGTH_LONG).show()
             }
         }
 
-    }
-
-    private fun getRemedy() {
-        val medList = sqLiteHelper.getAllRemedies()
-        adapter?.addItems(medList as ArrayList<RemedyModel>)
     }
 
     private fun cleanEditText() {

@@ -6,9 +6,4 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_search"
         android:title="@string/item_src"/>
-    <item
-        android:id="@+id/plus"
-        android:icon="@drawable/ic_add"
-        android:title="@string/item_adc"
-        app:showAsAction="always"/>
 </menu>

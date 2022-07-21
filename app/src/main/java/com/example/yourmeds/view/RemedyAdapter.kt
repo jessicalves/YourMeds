@@ -21,8 +21,8 @@ class RemedyAdapter : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
         fun bindView(med: RemedyModel){
             id.text = med.id.toString()
-            nome.text = med.nome
-            data.text = med.date
+            nome.text = med.nome.toString()
+            data.text = med.date.toString()
         }
     }
 

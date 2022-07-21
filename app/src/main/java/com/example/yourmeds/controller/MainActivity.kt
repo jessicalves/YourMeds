@@ -13,6 +13,7 @@ import com.example.yourmeds.R
 import com.example.yourmeds.model.RemedyModel
 import com.example.yourmeds.model.SQLiteHelper
 import com.example.yourmeds.view.RemedyAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 open class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -27,13 +28,20 @@ open class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleView)
         initRecyclerView()
         getRemedy()
+
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+            val mIntent = Intent(this, ChildActivity::class.java)
+            startActivity(mIntent)
+        }
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RemedyAdapter()
         recyclerView.adapter = adapter
@@ -43,16 +51,17 @@ open class MainActivity : AppCompatActivity() {
         val medList = sqLiteHelper.getAllRemedies()
         adapter?.addItems(medList as ArrayList<RemedyModel>)
     }
+
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.search -> {
             Toast.makeText(this, "Buscar", Toast.LENGTH_SHORT).show()
             true
         }
-        R.id.plus -> {
-            val mIntent = Intent(this, ChildActivity::class.java)
-            startActivity(mIntent)
-            true
-        }
+//        R.id.plus -> {
+//            val mIntent = Intent(this, ChildActivity::class.java)
+//            startActivity(mIntent)
+//            true
+//        }
         else -> {
             super.onOptionsItemSelected(item)
         }
