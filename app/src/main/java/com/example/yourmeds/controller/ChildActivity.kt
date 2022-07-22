@@ -1,12 +1,11 @@
 package com.example.yourmeds.controller
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.core.view.get
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yourmeds.R
@@ -16,6 +15,7 @@ import com.example.yourmeds.view.RemedyAdapter
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.util.*
 
 class ChildActivity : AppCompatActivity() {
 
@@ -27,8 +27,11 @@ class ChildActivity : AppCompatActivity() {
     private lateinit var btnSalvar: Button
     private lateinit var editTextNome: TextInputEditText
     private lateinit var editTextDose: TextInputEditText
-    private lateinit var editTextData: TextInputEditText
     private lateinit var editTextDias: TextInputEditText
+    private lateinit var btnData: Button
+    private lateinit var tvDate: TextView
+    private lateinit var recyclerView: RecyclerView
+    private var adapter: RemedyAdapter? = null
 
     private lateinit var sqLiteHelper: SQLiteHelper
 
@@ -37,10 +40,27 @@ class ChildActivity : AppCompatActivity() {
         setContentView(R.layout.activity_child)
         initView()
         sqLiteHelper = SQLiteHelper(this)
-        btnSalvar.setOnClickListener { addRemedy() }
+        btnSalvar.setOnClickListener {
+            addRemedy()
+            initRecyclerView()
+            getRemedy()
+            finish()
+        }
         supportActionBar!!.setTitle("Adicionar")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
+
+        val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        val year = cal.get(Calendar.YEAR)
+        val month = cal.get(Calendar.MONTH)
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+
+        btnData.setOnClickListener {
+            val datePickerDialog = DatePickerDialog(this, { view, myear, mmonth, mdayOfMonth ->
+                tvDate.setText("" + mdayOfMonth + "/" + "0" + mmonth + "/" + myear)
+            }, year, month, day)
+            datePickerDialog.show()
+        }
 
         val itemsCor = listOf(
             "Nenhuma",
@@ -90,16 +110,28 @@ class ChildActivity : AppCompatActivity() {
         }
     }
 
+    private fun initRecyclerView() {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = RemedyAdapter()
+        recyclerView.adapter = adapter
+    }
+
+    private fun getRemedy() {
+        val medList = sqLiteHelper.getAllRemedies()
+        adapter?.addItems(medList)
+    }
+
     private fun addRemedy() {
         val nome = editTextNome.text.toString()
         val dose = editTextDose.text.toString()
-        val data = editTextData.text.toString()
         val cor = autoCor.text.toString()
+        val data = tvDate.text.toString()
         val dias: Int
-        if (editTextDias.text.toString().isEmpty()) dias = 0 else dias = editTextDias.text.toString().toInt()
+        if (editTextDias.text.toString().isEmpty()) dias = 0 else dias =
+            editTextDias.text.toString().toInt()
         val period = autoRepetir.text.toString()
 
-        if (nome.isEmpty() || data.isEmpty()) {
+        if (nome.isEmpty()) {
             Toast.makeText(this, "Por favor, preencha os campos Nome e Data.", Toast.LENGTH_LONG)
                 .show()
             return
@@ -127,8 +159,8 @@ class ChildActivity : AppCompatActivity() {
     private fun cleanEditText() {
         editTextNome.setText("")
         editTextDose.setText("")
-        editTextData.setText("")
         editTextDias.setText("")
+        tvDate.setText("Data de início")
         editTextNome.requestFocus()
     }
 
@@ -152,7 +184,8 @@ class ChildActivity : AppCompatActivity() {
         btnSalvar = findViewById(R.id.btnSalvar)
         editTextNome = findViewById(R.id.editTextNome)
         editTextDose = findViewById(R.id.editTextDose)
-        editTextData = findViewById(R.id.editTextData)
         editTextDias = findViewById(R.id.editTextDias)
+        btnData = findViewById(R.id.btnData)
+        tvDate = findViewById(R.id.tvDate)
     }
 }

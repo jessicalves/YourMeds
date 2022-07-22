@@ -28,7 +28,6 @@ open class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recycleView)
         initRecyclerView()
         getRemedy()
-
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val mIntent = Intent(this, ChildActivity::class.java)
@@ -49,7 +48,7 @@ open class MainActivity : AppCompatActivity() {
 
     private fun getRemedy() {
         val medList = sqLiteHelper.getAllRemedies()
-        adapter?.addItems(medList as ArrayList<RemedyModel>)
+        adapter?.addItems(medList)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {

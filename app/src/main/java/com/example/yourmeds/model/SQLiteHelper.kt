@@ -3,8 +3,10 @@ package com.example.yourmeds.model
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.lang.Exception
 
 class SQLiteHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -21,22 +23,12 @@ class SQLiteHelper(context: Context) :
         private const val DAYS = "dias"
         private const val PERIOD = "period"
 
-        private const val sqlCreateRemedy =
-            ("CREATE TABLE IF NOT EXISTS $TBL_REMEDY($ID INTEGER PRIMARY KEY AUTOINCREMENT,$NAME TEXT,$DOSE TEXT,$DATE TEXT,$COLOR TEXT,$DAYS INTEGER, $PERIOD TEXT)")
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        val db = db ?: return
-
-        db.beginTransaction()
-        try {
-
-            db?.execSQL(sqlCreateRemedy)
-            db.setTransactionSuccessful()
-        } finally {
-
-            db.endTransaction()
-        }
+        val createTblStudent =
+            ("CREATE TABLE IF NOT EXISTS $TBL_REMEDY($ID INTEGER PRIMARY KEY,$NAME TEXT,$DOSE TEXT,$DATE TEXT,$COLOR TEXT,$DAYS INTEGER, $PERIOD TEXT)")
+        db?.execSQL(createTblStudent)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -44,7 +36,7 @@ class SQLiteHelper(context: Context) :
         onCreate(db)
     }
 
-    fun insertRemedy(med: RemedyModel) : Long{
+    fun insertRemedy(med: RemedyModel): Long {
         val db = this.writableDatabase
         val contentValues = ContentValues()
 
@@ -61,37 +53,34 @@ class SQLiteHelper(context: Context) :
         return success
     }
 
+
     @SuppressLint("Range")
-    fun getAllRemedies(): MutableList<RemedyModel> {
-        var remedies = mutableListOf<RemedyModel>()
-        val db = readableDatabase
+    fun getAllRemedies(): ArrayList<RemedyModel> {
+        val medList: ArrayList<RemedyModel> = ArrayList()
+        val selectQuery = "SELECT * FROM $TBL_REMEDY"
+        val db = this.readableDatabase
 
-        val cursor = db.query(
-            TBL_REMEDY,
-            null,
-            null,
-            null,
-            null,
-            null,
-            NAME
-        )
-        with(cursor) {
-
-            while (moveToNext()) {
-
-                val id = getInt(getColumnIndex(ID))
-                val nome = getString(getColumnIndex(NAME))
-//                val dose = getString(getColumnIndex(DOSE))
-                val data = getString(getColumnIndex(DATE))
-//                val cor = getString(getColumnIndex(COLOR))
-//                val dias = getInt(getColumnIndex(DAYS))
-//                val periodo = getString(getColumnIndex(PERIOD))
-
-                val remedy = RemedyModel(id, nome, data)
-                remedies.add(remedy)
-
-            }
+        val cursor: Cursor?
+        try {
+            cursor = db.rawQuery(selectQuery, null)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            db.execSQL(selectQuery)
+            return ArrayList()
         }
-        return remedies
+        var id: Int
+        var nome: String
+        var data: String
+
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(cursor.getColumnIndex("id"))
+                nome = cursor.getString(cursor.getColumnIndex("nome"))
+                data = cursor.getString(cursor.getColumnIndex("date"))
+                val med = RemedyModel(id = id, nome = nome, date = data)
+                medList.add(med)
+            } while (cursor.moveToNext())
+        }
+        return medList
     }
 }

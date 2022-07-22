@@ -13,19 +13,6 @@ class RemedyAdapter : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
     private var medList: ArrayList<RemedyModel> = ArrayList()
 
-    class RemedyHolder(view: View) : RecyclerView.ViewHolder(view){
-        private var id = view.findViewById<TextView>(R.id.tvId)
-        private var  nome = view.findViewById<TextView>(R.id.tvName)
-        private var data = view.findViewById<TextView>(R.id.tvData)
-        var btnDelete = view.findViewById<Button>(R.id.btnDelete)
-
-        fun bindView(med: RemedyModel){
-            id.text = med.id.toString()
-            nome.text = med.nome.toString()
-            data.text = med.date.toString()
-        }
-    }
-
     fun addItems(items: ArrayList<RemedyModel>) {
         this.medList = items
         notifyDataSetChanged()
@@ -43,5 +30,18 @@ class RemedyAdapter : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
     override fun getItemCount(): Int {
        return medList.size
+    }
+
+    class RemedyHolder(view: View) : RecyclerView.ViewHolder(view){
+        private var id = view.findViewById<TextView>(R.id.tvId)
+        private var  nome = view.findViewById<TextView>(R.id.tvName)
+        private var data = view.findViewById<TextView>(R.id.tvData)
+        var btnDelete = view.findViewById<Button>(R.id.btnDelete)
+
+        fun bindView(med: RemedyModel){
+            id.text = med.id.toString()
+            nome.text = med.nome
+            data.text = med.date
+        }
     }
 }
