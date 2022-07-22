@@ -30,7 +30,6 @@ class ChildActivity : AppCompatActivity() {
     private lateinit var editTextDias: TextInputEditText
     private lateinit var btnData: Button
     private lateinit var tvDate: TextView
-    private lateinit var recyclerView: RecyclerView
     private var adapter: RemedyAdapter? = null
 
     private lateinit var sqLiteHelper: SQLiteHelper
@@ -42,8 +41,10 @@ class ChildActivity : AppCompatActivity() {
         sqLiteHelper = SQLiteHelper(this)
         btnSalvar.setOnClickListener {
             addRemedy()
-            initRecyclerView()
-            getRemedy()
+            adapter = RemedyAdapter()
+            val medList = sqLiteHelper.getAllRemedies()
+            adapter?.addItems(medList)
+            adapter?.notifyDataSetChanged()
             finish()
         }
         supportActionBar!!.setTitle("Adicionar")
@@ -108,17 +109,6 @@ class ChildActivity : AppCompatActivity() {
                 editTextRepetir.visibility = View.INVISIBLE
             }
         }
-    }
-
-    private fun initRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = RemedyAdapter()
-        recyclerView.adapter = adapter
-    }
-
-    private fun getRemedy() {
-        val medList = sqLiteHelper.getAllRemedies()
-        adapter?.addItems(medList)
     }
 
     private fun addRemedy() {

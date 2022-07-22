@@ -15,7 +15,7 @@ class RemedyAdapter : RecyclerView.Adapter<RemedyAdapter.RemedyHolder>() {
 
     fun addItems(items: ArrayList<RemedyModel>) {
         this.medList = items
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemedyHolder {

@@ -35,6 +35,12 @@ open class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        initRecyclerView()
+        getRemedy()
+        super.onStart()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
@@ -43,7 +49,7 @@ open class MainActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RemedyAdapter()
-        recyclerView.adapter = adapter
+        recyclerView?.adapter = adapter
     }
 
     private fun getRemedy() {
